@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sensor Configuration</title>
+  <link rel="stylesheet" href="normalize.css">
+  <!-- <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'> -->
+  <link rel="stylesheet" href="main.css">
+
+  <link rel="apple-touch-icon" sizes="152x152" href="/i/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/i/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/i/favicon-16x16.png">
+  <link rel="manifest" href="/i/site.webmanifest">
+  <link rel="mask-icon" href="/i/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="/i/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="/i/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+</head>
+<body onload="setValues()">
+  <form id="SensorConfigForm" action="submit.html" method="post">
+    <!-- <input type="button" value="Set values" onclick="setValues()"> -->
+    <img src="/i/apple-touch-icon.png" width="90px" height="90px" style="display:block; margin-left: auto; margin-right: auto;">
+    <h1>Sensor Configuration</h1>
+    <h3><span class="number">1</span>Network</h3>
+    <fieldset>
+      <label>1. WiFi - Enabled:</label>
+      <input type="checkbox" id="wifi_enabled" value="false" name="wifi_enabled"><label class="light" for="wifi_enabled">Enabled</label><br>
+      <br>
+
+      <label>2. WiFi Access Point:</label>
+      <label for="wifi_ap_ssid">Name (SSID):  (max 31 chars)</label>
+      <input type="text" id="wifi_ap_ssid" name="wifi_ap_ssid" maxlength="31" title="Name of the Access Point - SSID (max 31 characters)" required>
+
+      <label for="wifi_ap_pwd">Password:  (max 64 chars)</label>
+      <input type="password" id="wifi_ap_pwd" name="wifi_ap_pwd" maxlength="64" title="Password for the Access Point (max 64 characters)" required>
+
+      <label for="wifi_con_delay"></label>3. WiFi connection delay (in miliseconds [50-500]):</label>
+      <input type="number" min="50" max="500" id="wifi_con_delay" name="wifi_con_delay"
+        pattern="([5-9][0-9]|1[0-9]{2}|2[0-9]{2}|3[0-9]{2}|4[0-9]{2}|500)" title="Value is between 50 and 500" required>
+
+        <label for="wifi_max_con_attempts"></label>4. WiFi max connection attempts ([50-500]]):</label>
+        <input type="number" min="50" max="500" id="wifi_max_con_attempts" name="wifi_max_con_attempts"
+          pattern="([5-9][0-9]|1[0-9]{2}|2[0-9]{2}|3[0-9]{2}|4[0-9]{2}|500)" title="Value is between 50 and 500" required>
+  
+    </fieldset>
+    
+    
+    <h3><span class="number">2</span>Data Upload</h3>
+    <fieldset>
+      <label for="upload_freq">1. Upload frequency (in seconds [30-3600]):</label>
+      <input type="number" min="30" max="3600" id="upload_freq" name="upload_freq" 
+        pattern="([3-8][0-9]|9[0-9]|[1-8][0-9]{2}|9[0-8][0-9]|99[0-9]|[12][0-9]{3}|3[0-5][0-9]{2}|3600)"
+        title="Value is between 30 and 3600" required>
+
+      <label for="upload_timeout">2. Upload timeout (in seconds [1-255]):</label>
+      <input type="number" min="1" max="255" id="upload_timeout" name="upload_timeout"
+        pattern="([1-9]|[1-8][0-9]|9[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])" title="Value is between 1 and 255" required>
+
+      <label for="device_id">3. Device ID: (max 15 chars)</label>
+      <input type="text" id="device_id" name="device_id" maxlength="15" title="ID of the Sensor (max 15 characters) E.g. 'TSH02'" required>
+
+      <label for="location">4. Location: (max 15 chars)</label>
+      <input type="text" id="location" name="location" maxlength="15" title="Location of the Sensor (max 15 characters) E.g. 'usBedR', 'dsLivR'" required>
+
+      <label for="data_measurement_org">5. Measurement org: (max 31 chars)</label>
+      <input type="text" id="data_measurement_org" name="data_measurement_org" maxlength="31" title="Measurement org. (max 31 characters) E.g. 'mine'" required>
+
+      <label for="data_measurement_bucket">6. Measurement bucket name: (max 31 chars)</label>
+      <input type="text" id="data_measurement_bucket" name="data_measurement_bucket" maxlength="31" title="Measurement bucket. (max 31 characters) E.g. 'ts_bucket'" required>
+
+      <label for="data_measurement_name">7. Measurement name: (max 31 chars)</label>
+      <input type="text" id="data_measurement_name" name="data_measurement_name" maxlength="31" title="Measurement name. (max 31 characters) E.g. 'homeThermoSensor', 'officeThermoSensor', 'devThermoSensor'" required>
+    </fieldset>
+
+    <h3><span class="number">3</span>Server Config</h3>
+    <fieldset>
+      <label for="server_address">1. Address: (max 255 chars)</label>
+      <input type="text" id="server_address" name="server_address" maxlength="255" title="The Servers address (max 255 characters) E.g. 'eu-central-1-1.aws.cloud2.influxdata.com'" required>
+
+      <label for="server_port">2. Port ([1-65535]):</label>
+      <input type="number" min="1" max="65525" id="server_port" name="server_port" 
+        title="Value is between 1 and 65535" required>
+
+      <label for="server_auth_token">3. Authentication token: (max 255 chars)</label>
+      <input type="text" id="server_auth_token" name="server_auth_token" maxlength="255" title="Authentication token (max 255 characters)" required>
+    </fieldset>
+
+    <h3><span class="number">4</span>Display</h3>
+    <fieldset>
+      <label for="display_contrast">1. Set contrast [0-255]:</label>
+      <input type="number" min="0" max="255" id="display_contrast" name="display_contrast" 
+        pattern="([0-9]|[1-8][0-9]|9[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])" 
+        title="Value is between 0 and 255" required>
+      <label for="display_rotation">2. Rotate screen up-side-down:</label>
+      <input type="checkbox" id="display_rotation" value="false" name="display_rotation"><label class="light">Yes</label><br>
+      </fieldset>
+
+    <h3><span class="number">5</span>Temperature sensor adjustment</h3>
+    <fieldset>
+      <label for="sensor_temp_correction">1. Correction value: [-2.0 ; +2.0]</label>
+      <input type="number" min="-2" max="2" step="0.1" id="sensor_temp_correction" name="sensor_temp_correction" title="The value is between -2.0 and +2.0">
+    </fieldset>
+
+    <h3><span class="number">6</span>Battery levels</h3>
+    <fieldset>
+      <label for="battery_min_level">1. The minimum level: [0 ; 1023]</label>
+      <input type="number" min="0" max="1023" step="1" id="battery_min_level" name="battery_min_level" title="The value is between 0 and 1023">
+      <label for="battery_max_level">2. The maximum level: [0 ; 1023]</label>
+      <input type="number" min="0" max="1023" step="1" id="battery_max_level" name="battery_max_level" title="The value is between 0 and 1023">
+    </fieldset>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script src="sensor_config.js"></script>
+</body>
+</html>
